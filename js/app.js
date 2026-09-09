@@ -618,6 +618,9 @@ function initTerminal() {
           <div class="text-emerald-400 font-semibold mb-1">AVAILABLE SOC COMMANDS:</div>
           <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-slate-300">
             <div><span class="text-cyan-400">whoami</span> - Identity & Specialization</div>
+            <div><span class="text-amber-400">mantra</span> - Sacred Defensive Creed (धर्मो रक्षति रक्षितः)</div>
+            <div><span class="text-amber-400">astra</span> - Cyber Astras & Defensive Arsenal</div>
+            <div><span class="text-emerald-400">kavach</span> - Layered Perimeter Shield Audit</div>
             <div><span class="text-cyan-400">bio</span> - Professional Summary</div>
             <div><span class="text-cyan-400">triage</span> - Live MITRE T1110 Incident Dossier</div>
             <div><span class="text-cyan-400">skills</span> - Full Core Security Skills Matrix</div>
@@ -631,10 +634,45 @@ function initTerminal() {
         `;
         break;
 
+      case 'mantra':
+      case 'dharma':
+        outEl.innerHTML = `
+          <div class="text-amber-400 font-bold text-sm">ॐ धर्मो रक्षति रक्षितः</div>
+          <div class="text-slate-300 italic">"Dharmo Rakshati Rakshitah"</div>
+          <div class="text-emerald-400 mt-1">He who guards the digital sanctity is guarded by it. A commitment to ethical cyber defense, digital sovereignty, and perimeter vigilance.</div>
+        `;
+        break;
+
+      case 'astra':
+        outEl.innerHTML = `
+          <div class="text-amber-400 font-bold mb-1.5">⚡ CYBER ASTRAS // DEFENSIVE ARSENAL:</div>
+          <div class="space-y-1">
+            <div>• <span class="text-cyan-400 font-semibold">Sudarshana Chakra</span>: 360° ArcSight SIEM Correlation & continuous Suricata IDS telemetry.</div>
+            <div>• <span class="text-cyan-400 font-semibold">Vajra-Kavach</span>: Stateful firewall micro-segmentation & isolated OT/IT industrial DMZ.</div>
+            <div>• <span class="text-cyan-400 font-semibold">Trinetra</span>: AI behavioral anomaly detection discerning disguised zero-day threats.</div>
+            <div>• <span class="text-cyan-400 font-semibold">Maya-Crypt</span>: AES-256 steganography concealing payloads within image carriers.</div>
+          </div>
+        `;
+        break;
+
+      case 'kavach':
+        outEl.innerHTML = `
+          <div class="text-emerald-400 font-bold mb-1.5">🛡️ KAVACHA SHIELD AUDIT:</div>
+          <div class="space-y-1 font-mono text-[11px]">
+            <div>• Perimeter Defense: <span class="text-emerald-400 font-semibold">100% UNBREACHED</span></div>
+            <div>• Suricata Sensor Nodes: <span class="text-cyan-400 font-semibold">VM-1 ONLINE (AF-PACKET)</span></div>
+            <div>• SIEM Engine: <span class="text-cyan-400 font-semibold">ARCSIGHT OPERATIONAL</span></div>
+            <div>• Threat Feeds: <span class="text-cyan-400 font-semibold">VIRUSTOTAL / ABUSEIPDB / OTX ACTIVE</span></div>
+            <div>• Status: <span class="text-amber-400 font-semibold">DEFCON 4 // RAKSHA ACTIVE</span></div>
+          </div>
+        `;
+        break;
+
       case 'whoami':
         outEl.innerHTML = `
-          <div class="text-emerald-400 font-bold">RITESH PAUL</div>
+          <div class="text-emerald-400 font-bold">RITESH PAUL <span class="text-amber-400 font-normal">[Cyber Rakshak]</span></div>
           <div>Role: Cybersecurity Analyst | SOC Operations | Incident Response</div>
+          <div>Motto: <span class="text-amber-300">धर्मो रक्षति रक्षितः</span> (Dharmo Rakshati Rakshitah)</div>
           <div>Location: Bangalore, India</div>
           <div>Status: Open to Full-Time & Internship SOC Roles</div>
         `;

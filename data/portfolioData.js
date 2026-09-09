@@ -12,9 +12,12 @@ export const portfolioData = {
     linkedinUser: "riteshpaul262",
     tryhackme: "https://tryhackme.com/p/riteshpaul262",
     linktree: "https://linktr.ee/riteshpaul",
+    motto: "धर्मो रक्षति रक्षितः",
+    mottoTrans: "Dharmo Rakshati Rakshitah // Protect the digital realm, and the shield protects you",
+    codeName: "Cyber Rakshak",
     status: "Open to SOC Analyst & Cybersecurity Opportunities",
     availability: "Available for Full-time & Internship Roles",
-    bio: "Cybersecurity Analyst and SOC Analyst fresher with hands-on government SOC internship experience in SIEM monitoring (ArcSight), incident response, IOC analysis, and alert triage. Experienced with threat intelligence tools (VirusTotal, AbuseIPDB, AlienVault OTX), MITRE ATT&CK framework, Azure cloud infrastructure, and Python. Pursuing B.Tech in Cybersecurity & Cyber Defense (graduating 2027)."
+    bio: "Cybersecurity Analyst and SOC Analyst fresher with hands-on government SOC internship experience in SIEM monitoring (ArcSight), incident response, IOC analysis, and alert triage. Experienced with threat intelligence tools (VirusTotal, AbuseIPDB, AlienVault OTX), MITRE ATT&CK framework, Azure cloud infrastructure, and Python. Guided by the philosophy of Dharmo Rakshati Rakshitah — safeguarding critical infrastructure with unwavering digital vigilance. Pursuing B.Tech in Cybersecurity & Cyber Defense (graduating 2027)."
   },
 
   stats: [
@@ -25,8 +28,8 @@ export const portfolioData = {
   ],
 
   socMetrics: {
-    systemStatus: "DEFCON 4 // NORMAL OPERATING STATUS",
-    siemEngine: "Micro Focus ArcSight + Suricata IDS",
+    systemStatus: "DEFCON 4 // RAKSHA SHIELD OPERATIONAL",
+    siemEngine: "Sudarshana Telemetry (ArcSight + Suricata IDS)",
     threatFeedStatus: "ACTIVE (VirusTotal / AbuseIPDB / AlienVault OTX)",
     activeSensors: "VM-1 (Sensor Layer) + Filebeat Shipper",
     mitreTechniqueInScope: "T1110 (Brute Force) & OWASP Top 10"
@@ -185,10 +188,10 @@ export const portfolioData = {
   projects: [
     {
       id: "threat-intel-pipeline",
-      title: "Location-Based Threat Intelligence Alert System",
+      title: "Project Sudarshana (सुदर्शन) — Threat Intel Alert Pipeline",
       scope: "Major Project — Sri Sri University",
       category: "siem",
-      categoryLabel: "SIEM & SOC Pipeline",
+      categoryLabel: "SIEM & SOC Pipeline // Sudarshana Chakra",
       role: "Team Lead (Team of 5)",
       featured: true,
       summary: "Architected and built a distributed multi-VM SOC pipeline replicating an enterprise production detection-to-dashboard workflow. Owned the sensor layer (VM-1), configuring Suricata IDS with AF-PACKET capture, writing 15 custom detection rules covering OWASP Top 10, and shipping enriched logs via Filebeat.",
@@ -208,10 +211,10 @@ export const portfolioData = {
     },
     {
       id: "oil-gas-architecture",
-      title: "Oil & Gas Network Security Architecture",
+      title: "Vajra-Kavach (वज्र कवच) — Oil & Gas Network Security Architecture",
       scope: "Minor Project — Sri Sri University",
       category: "network",
-      categoryLabel: "Industrial & Network Defense",
+      categoryLabel: "Industrial & Network Defense // Vajra Shield",
       role: "Security Architect",
       featured: true,
       summary: "Designed a hardened, secure OT/IT converged network for oil & gas refinery operations in Cisco Packet Tracer with multi-tier stateful firewalls, isolated VLANs, and Demilitarized Zones (DMZ) to isolate OT operational technology assets and prevent lateral threat movement.",
@@ -230,10 +233,10 @@ export const portfolioData = {
     },
     {
       id: "ai-firewall",
-      title: "AI-Driven Intelligent Firewall",
+      title: "Project Trinetra (त्रिनेत्र) — AI-Driven Intelligent Firewall",
       scope: "College Research Project — Sri Sri University",
       category: "ai-threat",
-      categoryLabel: "AI & Threat Response",
+      categoryLabel: "AI & Threat Response // Trinetra Vision",
       role: "Core Contributor",
       featured: true,
       summary: "Proposed an AI-integrated firewall using ML-based behavioral anomaly detection for real-time network traffic analysis, automated threat response, and CVE-based dynamic rule updates.",
@@ -343,9 +346,12 @@ export const portfolioData = {
   ],
 
   terminalCommands: {
-    help: "Available commands: whoami, bio, skills, experience, projects, certs, triage, contact, metrics, clear, resume",
+    help: "Available commands: whoami, bio, mantra, astra, kavach, skills, experience, projects, certs, triage, contact, metrics, clear, resume",
     whoami: "Ritesh Paul - Cybersecurity Analyst | SOC Operations | SIEM (ArcSight) | Incident Response | Bangalore, India",
     bio: "Fresher Cybersecurity Analyst with hands-on government SOC internship experience (OCAC Tower CSOC) triaging 50+ live alerts daily, investigating brute force attacks (T1110), and architecting distributed Suricata IDS detection pipelines.",
+    mantra: "ॐ धर्मो रक्षति रक्षितः // Dharmo Rakshati Rakshitah — Protecting the sanctity of digital infrastructure. Those who uphold defense are guarded by it.",
+    astra: "DEFENSIVE ASTRAS (SECURITY ARSENAL):\\n• Sudarshana Chakra -> ArcSight SIEM Correlation & 360-degree Sensor Vigilance\\n• Vajra Kavacha -> OT/IT Deep Packet Firewalls & Demilitarized Micro-Segmentation\\n• Trinetra -> AI Behavioral Anomaly Detector & CVE Correlation Engine\\n• Maya-Crypt -> AES-256 Steganographic Covert Data Armor",
+    kavach: "KAVACHA DEFENSE AUDIT: [Perimeter Shield: 100% SECURE] [Suricata Sensors: ONLINE] [IOC Feed: ACTIVE] [Status: UNBREACHED]",
     triage: "INCIDENT RECORD #T1110: Brute Force Attack detected on Govt CSOC sensor. Triaged via ArcSight -> IOC enriched via VirusTotal/AbuseIPDB -> Escalated to Level 2 with ITMS ticket. Outcome: Block & Mitigate.",
     contact: "Email: riteshpaul262@gmail.com | Phone: +91 95472 44315 | LinkedIn: /in/riteshpaul262 | GitHub: /RITESH-we",
     metrics: "50+ Alerts/Day | 15+ Custom Suricata Rules | MITRE T1110 Live Investigation | 6 Industry Certifications"
