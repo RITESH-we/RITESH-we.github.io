@@ -10,6 +10,8 @@ export const portfolioData = {
     githubUser: "RITESH-we",
     linkedin: "https://linkedin.com/in/riteshpaul262",
     linkedinUser: "riteshpaul262",
+    tryhackme: "https://tryhackme.com/p/riteshpaul262",
+    linktree: "https://linktr.ee/riteshpaul",
     status: "Open to SOC Analyst & Cybersecurity Opportunities",
     availability: "Available for Full-time & Internship Roles",
     bio: "Cybersecurity Analyst and SOC Analyst fresher with hands-on government SOC internship experience in SIEM monitoring (ArcSight), incident response, IOC analysis, and alert triage. Experienced with threat intelligence tools (VirusTotal, AbuseIPDB, AlienVault OTX), MITRE ATT&CK framework, Azure cloud infrastructure, and Python. Pursuing B.Tech in Cybersecurity & Cyber Defense (graduating 2027)."
