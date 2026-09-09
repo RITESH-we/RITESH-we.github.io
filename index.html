@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ritesh Paul | Cybersecurity Analyst & SOC Operations</title>
+  <meta name="description" content="Portfolio of Ritesh Paul - Cybersecurity Analyst specializing in SOC Operations, ArcSight SIEM monitoring, Incident Response, Threat Intelligence, and Network Defense.">
+  <meta name="author" content="Ritesh Paul">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2306b6d4' stroke-width='2'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/></svg>">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              950: '#03060f',
+              900: '#050811',
+              850: '#080e1e',
+              800: '#0d162d',
+              700: '#142347'
+            }
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="bg-[#050811] text-slate-200 min-h-screen relative selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- Canvas for Cyber Matrix Background Animation -->
+  <canvas id="cyber-canvas"></canvas>
+
+  <!-- Cyber Grid Texture Overlay -->
+  <div class="fixed inset-0 cyber-grid-overlay pointer-events-none z-0"></div>
+
+  <!-- Real-time Top SOC Status Bar -->
+  <aside aria-label="SOC Status" class="relative z-50 bg-[#03060f] border-b border-cyan-500/20 text-xs font-mono py-1 px-4 text-slate-400 no-print">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald"></span>
+          DEFCON 4 // SOC OPERATIONAL
+        </span>
+        <span class="hidden md:inline text-slate-600">|</span>
+        <span class="hidden md:inline text-slate-400">
+          SIEM: <span class="text-cyan-400">ArcSight Core + Suricata</span>
+        </span>
+        <span class="hidden lg:inline text-slate-600">|</span>
+        <span class="hidden lg:inline text-slate-400">
+          INTEL: <span class="text-cyan-400">VirusTotal / AbuseIPDB Active</span>
+        </span>
+      </div>
+      <div class="flex items-center gap-3 text-slate-400">
+        <span id="soc-clock" class="text-slate-300 font-medium">00:00:00 UTC</span>
+        <span class="text-slate-600">|</span>
+        <span class="flex items-center gap-1 text-slate-400">
+          LATENCY: <span id="soc-ping" class="text-emerald-400">14ms</span>
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-[#050811]/85 backdrop-blur-md border-b border-slate-800/80 no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500/20 to-emerald-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400 group-hover:border-cyan-400 transition-all shadow-sm shadow-cyan-500/20">
+          <i data-lucide="shield" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-mono font-bold text-slate-100 text-sm tracking-wider flex items-center gap-1">
+            RITESH<span class="text-cyan-400">.PAUL</span>
+          </span>
+          <span class="text-[10px] font-mono text-slate-400 block tracking-widest -mt-0.5">SOC ANALYST</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-mono text-slate-300">
+        <a href="#overview" class="hover:text-cyan-400 transition-colors">/OVERVIEW</a>
+        <a href="#skills" class="hover:text-cyan-400 transition-colors">/SKILLS</a>
+        <a href="#experience" class="hover:text-cyan-400 transition-colors">/EXPERIENCE</a>
+        <a href="#projects" class="hover:text-cyan-400 transition-colors">/PROJECTS</a>
+        <a href="#certifications" class="hover:text-cyan-400 transition-colors">/CERTS</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-colors">/CONTACT</a>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5">
+        <!-- Terminal Trigger -->
+        <button 
+          class="open-terminal-btn flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-mono transition-all group"
+          title="Open Interactive SOC Terminal (~ or Ctrl+K)"
+        >
+          <i data-lucide="terminal" class="w-3.5 h-3.5 text-cyan-400 group-hover:text-cyan-200"></i>
+          <span class="hidden sm:inline">CLI Console</span>
+          <kbd class="hidden lg:inline px-1 py-0.2 rounded bg-cyan-950/80 text-[10px] text-cyan-400 border border-cyan-500/30">~</kbd>
+        </button>
+
+        <!-- Printable Resume Trigger -->
+        <button 
+          onclick="window.print()" 
+          class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 text-xs font-mono transition-all"
+          title="Print or Save PDF Resume"
+        >
+          <i data-lucide="printer" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span>PDF Resume</span>
+        </button>
+
+        <!-- Social Quick Links -->
+        <a 
+          href="https://linkedin.com/in/riteshpaul262" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 border border-slate-800 transition-all"
+          title="LinkedIn Profile"
+        >
+          <i data-lucide="linkedin" class="w-4 h-4"></i>
+        </a>
+        <a 
+          href="https://github.com/RITESH-we" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 border border-slate-800 transition-all"
+          title="GitHub Profile"
+        >
+          <i data-lucide="github" class="w-4 h-4"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button 
+          id="mobile-menu-toggle" 
+          class="md:hidden p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400"
+          aria-label="Toggle navigation menu"
+        >
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-[#070d1e] border-b border-slate-800 px-4 py-3 space-y-2 font-mono text-xs text-slate-300">
+      <a href="#overview" class="block py-1 hover:text-cyan-400">/OVERVIEW</a>
+      <a href="#skills" class="block py-1 hover:text-cyan-400">/SKILLS</a>
+      <a href="#experience" class="block py-1 hover:text-cyan-400">/EXPERIENCE</a>
+      <a href="#projects" class="block py-1 hover:text-cyan-400">/PROJECTS</a>
+      <a href="#certifications" class="block py-1 hover:text-cyan-400">/CERTS</a>
+      <a href="#contact" class="block py-1 hover:text-cyan-400">/CONTACT</a>
+      <button onclick="window.print()" class="w-full text-left py-1 text-cyan-400">/PRINT RESUME</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24">
+
+    <!-- HERO SECTION -->
+    <section id="overview" class="pt-6 pb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        
+        <!-- Left Hero Content -->
+        <div class="lg:col-span-8 space-y-6">
+          
+          <!-- Status Pill -->
+          <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 pulse-emerald"></span>
+            <span>OPEN TO SOC ANALYST & CYBERSECURITY ROLES</span>
+          </div>
+
+          <!-- Headline -->
+          <div class="space-y-2">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">
+              Hi, I'm <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-emerald-400 bg-clip-text text-transparent">Ritesh Paul</span>
+            </h1>
+            <p class="text-xl sm:text-2xl font-mono text-cyan-300/90 font-medium">
+              Cybersecurity Analyst &amp; SOC Operations Specialist
+            </p>
+          </div>
+
+          <!-- Summary Bio -->
+          <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl">
+            Hands-on experience in production <strong class="text-slate-100 font-semibold">Government SOC operations</strong> monitoring live telemetry via <strong class="text-cyan-300 font-semibold">ArcSight SIEM</strong>, conducting IOC analysis, and escalating confirmed incidents (MITRE ATT&amp;CK T1110). Architect of distributed multi-VM threat detection pipelines utilizing <strong class="text-emerald-300 font-semibold">Suricata IDS</strong> and Filebeat.
+          </p>
+
+          <!-- Contact & Location Meta -->
+          <div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-400 pt-1">
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-cyan-400"></i> Bangalore, India
+            </span>
+            <span>•</span>
+            <a href="mailto:riteshpaul262@gmail.com" class="flex items-center gap-1.5 hover:text-cyan-300 transition-colors">
+              <i data-lucide="mail" class="w-3.5 h-3.5 text-cyan-400"></i> riteshpaul262@gmail.com
+            </a>
+            <span>•</span>
+            <span class="flex items-center gap-1.5">
+              <i data-lucide="phone" class="w-3.5 h-3.5 text-cyan-400"></i> +91 95472 44315
+            </span>
+          </div>
+
+          <!-- Hero Action Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-4">
+            <a 
+              href="#experience" 
+              class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-semibold text-sm transition-all shadow-lg shadow-cyan-500/20 flex items-center gap-2"
+            >
+              <span>View SOC Experience</span>
+              <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+            </a>
+
+            <button 
+              class="open-terminal-btn px-5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/40 text-cyan-300 text-sm font-mono transition-all flex items-center gap-2"
+            >
+              <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+              <span>Launch CLI Terminal</span>
+            </button>
+
+            <a 
+              href="#contact" 
+              class="px-5 py-2.5 rounded-xl bg-slate-900/60 hover:bg-slate-800/80 border border-slate-700 text-slate-200 text-sm font-medium transition-all flex items-center gap-2"
+            >
+              <i data-lucide="send" class="w-4 h-4 text-slate-400"></i>
+              <span>Get in Touch</span>
+            </a>
+          </div>
+
+        </div>
+
+        <!-- Right Quick Defense Card -->
+        <div class="lg:col-span-4">
+          <div class="cyber-card p-6 rounded-2xl border border-cyan-500/30 shadow-2xl shadow-cyan-950/50 space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div class="flex items-center gap-2">
+                <i data-lucide="activity" class="w-4 h-4 text-cyan-400"></i>
+                <span class="text-xs font-mono font-bold text-slate-200 uppercase tracking-wider">DEFENSE TELEMETRY</span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                ACTIVE
+              </span>
+            </div>
+
+            <!-- Telemetry Items -->
+            <div class="space-y-3 font-mono text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-center justify-between">
+                <span class="text-slate-400">SIEM Engine</span>
+                <span class="text-cyan-300 font-semibold">ArcSight SIEM</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-center justify-between">
+                <span class="text-slate-400">Live Alert Triage</span>
+                <span class="text-emerald-400 font-semibold">50+ / Day (CSOC)</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-center justify-between">
+                <span class="text-slate-400">MITRE Case Study</span>
+                <span class="text-amber-400 font-semibold">T1110 (Brute Force)</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800/80 flex items-center justify-between">
+                <span class="text-slate-400">Detection Signatures</span>
+                <span class="text-cyan-300 font-semibold">15 Rules (Suricata)</span>
+              </div>
+            </div>
+
+            <!-- Terminal Hint -->
+            <div class="pt-3 border-t border-slate-800/80 text-center">
+              <button class="open-terminal-btn text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center justify-center gap-1.5 w-full py-1">
+                <span>Run `triage` command in terminal</span>
+                <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Hero Metrics Grid -->
+      <div id="hero-stats-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">
+        <!-- Injected dynamically via app.js -->
+      </div>
+    </section>
+
+    <!-- SKILLS MATRIX SECTION -->
+    <section id="skills" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-800/80 pb-5">
+        <div>
+          <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+            <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>
+            <span>TECHNICAL CAPABILITIES</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100">
+            Security Capabilities &amp; Detection Stack
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">
+            Hands-on proficiencies in security operations, threat hunting, log forensics, and perimeter defenses.
+          </p>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="w-full md:w-72">
+          <div class="relative">
+            <i data-lucide="search" class="w-4 h-4 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="skill-search-input" 
+              placeholder="Search skills (e.g. ArcSight, Python)..." 
+              class="w-full pl-9 pr-3 py-2 text-xs font-mono rounded-xl bg-slate-900/90 border border-slate-800 focus:border-cyan-500 focus:outline-none text-slate-200 placeholder:text-slate-500 transition-all"
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div id="skills-category-tabs" class="flex flex-wrap gap-2">
+        <!-- Injected via app.js -->
+      </div>
+
+      <!-- Skills Card Grid -->
+      <div id="skills-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- EXPERIENCE SECTION -->
+    <section id="experience" class="space-y-8 scroll-mt-24">
+      <div class="border-b border-slate-800/80 pb-5">
+        <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>OPERATIONAL RECORD</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100">
+          Work Experience &amp; Incident Triage
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          Real-world security operations center engagement, cryptographic research, and vulnerability assessments.
+        </p>
+      </div>
+
+      <!-- Experience Timeline -->
+      <div id="experience-timeline" class="space-y-4">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-800/80 pb-5">
+        <div>
+          <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+            <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+            <span>SECURITY LABS &amp; ARCHITECTURE</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100">
+            Key Projects &amp; Threat Pipelines
+          </h2>
+          <p class="text-sm text-slate-400 mt-1">
+            Production detection pipelines, industrial network architectures, and automated threat defenses.
+          </p>
+        </div>
+
+        <!-- Project Filter Tabs -->
+        <div id="projects-filter-tabs" class="flex flex-wrap gap-2">
+          <!-- Injected via app.js -->
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div id="projects-grid" class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS SECTION -->
+    <section id="certifications" class="space-y-8 scroll-mt-24">
+      <div class="border-b border-slate-800/80 pb-5">
+        <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+          <i data-lucide="award" class="w-3.5 h-3.5"></i>
+          <span>VALIDATED PROFICIENCIES</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100">
+          Industry Certifications &amp; Credentials
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          Recognized certifications from Cisco, OPSWAT Academy, Google, Red Hat, and enterprise simulations.
+        </p>
+      </div>
+
+      <!-- Certifications Grid -->
+      <div id="certifications-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- EDUCATION SECTION -->
+    <section id="education" class="space-y-8 scroll-mt-24">
+      <div class="border-b border-slate-800/80 pb-5">
+        <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+          <span>ACADEMIC FOUNDATION</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100">
+          Education &amp; Academic Background
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          Rigorous engineering background in Cybersecurity, Cyber Defense, and Analytical Foundations.
+        </p>
+      </div>
+
+      <!-- Education Grid -->
+      <div id="education-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+    <!-- CONTACT & DIRECT CONNECT SECTION -->
+    <section id="contact" class="space-y-8 scroll-mt-24">
+      <div class="border-b border-slate-800/80 pb-5">
+        <div class="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+          <i data-lucide="radio" class="w-3.5 h-3.5"></i>
+          <span>INITIATE COMMUNICATIONS</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-100">
+          Contact &amp; Connect with Ritesh
+        </h2>
+        <p class="text-sm text-slate-400 mt-1">
+          Have an opening in your Security Operations Center or need a dedicated Cybersecurity Analyst? Let's connect.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Quick Direct Contact Cards -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <!-- Email Card with Copy -->
+          <div class="cyber-card p-5 rounded-2xl border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3.5">
+              <div class="p-3 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                <i data-lucide="mail" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-mono text-slate-400 uppercase">Direct Email</p>
+                <a href="mailto:riteshpaul262@gmail.com" class="text-sm font-semibold text-slate-100 hover:text-cyan-300">
+                  riteshpaul262@gmail.com
+                </a>
+              </div>
+            </div>
+            <button 
+              id="copy-email-btn" 
+              class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-cyan-400 border border-slate-700 transition-colors"
+              title="Copy Email"
+            >
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Phone Card with Copy -->
+          <div class="cyber-card p-5 rounded-2xl border border-slate-800 flex items-center justify-between">
+            <div class="flex items-center gap-3.5">
+              <div class="p-3 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <i data-lucide="phone" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <p class="text-xs font-mono text-slate-400 uppercase">Direct Phone</p>
+                <a href="tel:+919547244315" class="text-sm font-semibold text-slate-100 hover:text-emerald-300">
+                  +91 95472 44315
+                </a>
+              </div>
+            </div>
+            <button 
+              id="copy-phone-btn" 
+              class="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-emerald-400 border border-slate-700 transition-colors"
+              title="Copy Phone"
+            >
+              <i data-lucide="copy" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- Professional Profiles -->
+          <div class="cyber-card p-5 rounded-2xl border border-slate-800 space-y-3">
+            <p class="text-xs font-mono text-slate-400 uppercase">Professional Networks</p>
+            <div class="grid grid-cols-2 gap-3">
+              <a 
+                href="https://linkedin.com/in/riteshpaul262" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 p-3 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-200 transition-all text-xs font-mono"
+              >
+                <i data-lucide="linkedin" class="w-4 h-4 text-cyan-400"></i>
+                <span>LinkedIn Profile</span>
+              </a>
+              <a 
+                href="https://github.com/RITESH-we" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="flex items-center gap-2 p-3 rounded-xl bg-slate-950/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/40 text-slate-200 transition-all text-xs font-mono"
+              >
+                <i data-lucide="github" class="w-4 h-4 text-slate-300"></i>
+                <span>GitHub Repos</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Message Dispatcher -->
+        <div class="lg:col-span-7">
+          <form id="quick-contact-form" class="cyber-card p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-4">
+            <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+              <i data-lucide="send" class="w-4 h-4 text-cyan-400"></i>
+              <span>Dispatch a Message</span>
+            </h3>
+
+            <!-- Template Picker -->
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1.5">Select Purpose / Template</label>
+              <select id="contact-template-select" class="w-full px-3.5 py-2.5 text-xs font-mono rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-500 focus:outline-none text-slate-200">
+                <option value="interview">SOC Analyst Interview Request</option>
+                <option value="soc-role">Job Opportunity / Full-time Role</option>
+                <option value="general">Threat Intel &amp; Security Inquiry</option>
+              </select>
+            </div>
+
+            <!-- Message Area -->
+            <div>
+              <label class="block text-xs font-mono text-slate-400 mb-1.5">Message Content</label>
+              <textarea 
+                id="contact-message" 
+                rows="5" 
+                class="w-full p-3.5 text-xs font-mono rounded-xl bg-slate-950 border border-slate-800 focus:border-cyan-500 focus:outline-none text-slate-200 leading-relaxed"
+              >Hi Ritesh,&#10;&#10;We reviewed your experience with ArcSight SIEM monitoring, threat intelligence triage, and your government CSOC internship. We would like to invite you for an interview regarding a Cybersecurity Analyst role.</textarea>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+              <span class="text-[11px] font-mono text-slate-500">
+                Opens directly in your email client
+              </span>
+              <button 
+                type="submit" 
+                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs font-mono transition-all flex items-center gap-2 shadow-lg shadow-cyan-500/20"
+              >
+                <span>Send Email</span>
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-24 border-t border-slate-900 bg-[#03060f] py-8 text-center text-xs font-mono text-slate-500 relative z-10 no-print">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <span>RITESH PAUL // SOC OPERATIONS // 2026</span>
+      </div>
+      <div>
+        Designed for High-Impact SOC &amp; Cybersecurity Recruitment
+      </div>
+      <a href="#" class="text-slate-400 hover:text-cyan-400 transition-colors flex items-center gap-1">
+        <span>Back to top</span>
+        <i data-lucide="arrow-up" class="w-3 h-3"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ================================================================= -->
+  <!-- INTERACTIVE SOC TERMINAL MODAL (Accessible Native <dialog>)      -->
+  <!-- ================================================================= -->
+  <dialog id="terminal-dialog" class="terminal-window p-0 w-[92vw] max-w-3xl rounded-xl text-slate-200 no-print">
+    <div class="flex flex-col h-[560px] max-h-[85vh]">
+      
+      <!-- Terminal Window Bar -->
+      <div class="terminal-header px-4 py-3 flex items-center justify-between select-none">
+        <div class="flex items-center gap-2">
+          <span class="w-3 h-3 rounded-full bg-rose-500/80 inline-block cursor-pointer" onclick="document.getElementById('terminal-dialog').close()"></span>
+          <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+          <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+          <span class="ml-2 font-mono text-xs text-slate-300 font-semibold flex items-center gap-1.5">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-cyan-400"></i>
+            ritesh@soc-console: ~ (zsh)
+          </span>
+        </div>
+        <button id="close-terminal-btn" class="text-slate-400 hover:text-slate-100 p-1 text-xs font-mono" aria-label="Close terminal">
+          ✕ ESC
+        </button>
+      </div>
+
+      <!-- Quick Command Bar Chips -->
+      <div class="bg-slate-950/90 border-b border-slate-800/80 px-4 py-2 flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono select-none">
+        <span class="text-slate-500 mr-1">RUN:</span>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="help">help</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="whoami">whoami</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="triage">triage</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="skills">skills</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="experience">experience</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="projects">projects</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="certs">certs</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="contact">contact</button>
+        <button class="terminal-cmd-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-cyan-500/20 text-cyan-300 border border-slate-800" data-cmd="clear">clear</button>
+      </div>
+
+      <!-- Terminal Output Scroll Area -->
+      <div id="terminal-logs" class="flex-1 p-4 overflow-y-auto font-mono text-xs space-y-2 bg-[#050914]/95">
+        <div class="text-cyan-400 font-semibold">
+          ==============================================================<br>
+          * RITESH PAUL // CYBERSECURITY SOC COMMAND CONSOLE v2.4       *<br>
+          * ArcSight SIEM • MITRE ATT&amp;CK T1110 • Suricata Pipeline      *<br>
+          ==============================================================
+        </div>
+        <div class="text-slate-400">
+          Type <span class="text-cyan-300 font-semibold">help</span> or click any quick command badge above. Try <span class="text-amber-400 font-semibold">triage</span> to inspect the government CSOC brute force incident record.
+        </div>
+      </div>
+
+      <!-- Input Command Line -->
+      <div class="p-3 bg-[#070e1e] border-t border-slate-800/80 flex items-center gap-2 font-mono text-xs">
+        <span class="text-cyan-400 font-bold select-none">ritesh@soc-console:~$</span>
+        <input 
+          type="text" 
+          id="terminal-cli-input" 
+          placeholder="type command here..." 
+          autocomplete="off" 
+          spellcheck="false" 
+          class="flex-1 bg-transparent border-none text-slate-100 focus:outline-none"
+        >
+        <span class="terminal-cursor"></span>
+      </div>
+
+    </div>
+  </dialog>
+
+  <!-- Toast Notification -->
+  <div id="toast-notification" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl bg-slate-900 border border-cyan-500/40 text-cyan-200 text-xs font-mono shadow-2xl shadow-cyan-950/80 pointer-events-none no-print">
+    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-message">Action successful</span>
+  </div>
+
+  <!-- Application Script (ES Module) -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
