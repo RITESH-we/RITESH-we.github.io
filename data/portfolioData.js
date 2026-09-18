@@ -35,6 +35,64 @@ export const portfolioData = {
     mitreTechniqueInScope: "T1110 (Brute Force) & OWASP Top 10"
   },
 
+  autonomousDefense: {
+    title: "CyArt-Aligned Autonomous Cyber Defense Ecosystem",
+    engine: "Project Trinetra Heuristic Core v2.4",
+    status: "AUTONOMOUS MONITORING ACTIVE",
+    threatAssessment: "ZERO LATERAL MOVEMENT DETECTED",
+    mitreTactics: "T1110 (Brute Force), T1059 (Execution), T1190 (Exploit Public-Facing App)",
+    sovereignCompliance: "CERT-In, NCIIPC & Critical Infrastructure Directives",
+    anomalyScore: "0.02% (NOMINAL BASELINE)",
+    triageCapacity: "50+ Alerts/Day Automated & Analyst-Correlated"
+  },
+
+  asciiArt: {
+    chakra: `
+               .---.                 
+          .---'     '---.            
+       .-'   \\   |   /   '-.         
+     .'   \\   \\  |  /   /   '.       
+    /  \\   \\   \\ | /   /   /  \\      
+   |    \\   \\   \\|/   /   /    |     
+  |---|---\\---( (O) )---/---|---|    
+   |    /   /   /|\\   \\   \\    |     
+    \\  /   /   / | \\   \\   \\  /      
+     '.   /   /  |  \\   \\   .'       
+       '-.   /   |   \\   .-'         
+          '---.     .---'            
+               '---'                 
+      ॥ धर्मो रक्षति रक्षितः ॥
+   [ SUDARSHANA DEFENSE MATRIX ]
+   Omnidirectional SIEM & Threat Radar
+`,
+    shield: `
+      .------------------------.
+     /  .-.   CYBER RAKSHAK  .-. \\
+    |  /   \\     KAVACH     /   \\ |
+    | |\\_. /               \\ ._/| |
+    | |   /  [===+===+===]  \\   | |
+    | |  |   | 0 | 1 | 0 |   |  | |
+    | |  |   |---+---+---|   |  | |
+    | |  |   | 1 | 0 | 1 |   |  | |
+    \\ \\   \\  [===+===+===]  /   / /
+     \\ \\   '.             .'   / /
+      \\ '._  '--._____.--'  _.' /
+       '._ '---._____.---' _.'
+          '--.._______..--'
+      [ PERIMETER SECURED: 100% ]
+   Vajra-Kavach Industrial Defense Shield
+`,
+    banner: `
+ ██████╗██╗   ██╗██████╗ ███████╗██████╗     ██████╗  █████╗ ██╗   ██╗██╗     
+██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗    ██╔══██╗██╔══██╗██║   ██║██║     
+██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝    ██████╔╝███████║██║   ██║██║     
+██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗    ██╔═══╝ ██╔══██║██║   ██║██║     
+╚██████╗   ██║   ██████╔╝███████╗██║  ██║    ██║     ██║  ██║╚██████╔╝███████╗
+ ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚═╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+       [ CYBER RAKSHAK // SOC OPERATIONS & AUTONOMOUS DEFENSE ]
+`
+  },
+
   skillCategories: [
     {
       id: "siem",

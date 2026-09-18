@@ -5,16 +5,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg-primary: #050811;
-  --bg-secondary: #0a1124;
-  --bg-card: rgba(13, 22, 45, 0.7);
-  --bg-card-hover: rgba(20, 35, 71, 0.85);
-  --border-subtle: rgba(56, 189, 248, 0.15);
-  --border-glow: rgba(56, 189, 248, 0.4);
-  --cyan-glow: #06b6d4;
-  --emerald-glow: #10b981;
+  --bg-primary: #02040a;
+  --bg-secondary: #060b18;
+  --bg-card: rgba(8, 14, 30, 0.75);
+  --bg-card-hover: rgba(14, 25, 52, 0.9);
+  --border-subtle: rgba(56, 189, 248, 0.16);
+  --border-glow: rgba(56, 189, 248, 0.5);
+  --cyan-glow: #00f0ff;
+  --emerald-glow: #00ff9d;
   --amber-alert: #f59e0b;
   --red-threat: #ef4444;
+  --saffron-sacred: #ff9933;
   --font-mono: 'JetBrains Mono', monospace;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
@@ -41,28 +42,28 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.28;
+  opacity: 0.22;
 }
 
-/* Subtle Grid Texture */
+/* Subtle High-Tech Grid Texture */
 .cyber-grid-overlay {
   background-image: 
-    linear-gradient(rgba(6, 182, 212, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(6, 182, 212, 0.04) 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
   background-position: center center;
 }
 
 /* Custom Cyber Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #050811;
+  background: #02040a;
 }
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--cyan-glow);
@@ -76,23 +77,27 @@ body {
 /* Neon Glow Accents */
 .text-cyan-glow {
   color: #38bdf8;
-  text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+  text-shadow: 0 0 14px rgba(0, 240, 255, 0.5);
 }
 .text-emerald-glow {
   color: #34d399;
-  text-shadow: 0 0 12px rgba(52, 211, 153, 0.4);
+  text-shadow: 0 0 14px rgba(0, 255, 157, 0.5);
+}
+.text-saffron-glow {
+  color: #ff9933;
+  text-shadow: 0 0 14px rgba(255, 153, 51, 0.4);
 }
 
 .border-cyan-glow {
-  border-color: rgba(56, 189, 248, 0.35);
-  box-shadow: 0 0 15px rgba(6, 182, 212, 0.12);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
 }
 
-/* Card Glow Effect */
+/* CyArt Sci-Fi Cyber Card */
 .cyber-card {
   background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
   border: 1px solid var(--border-subtle);
   transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -106,7 +111,7 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.4), transparent);
   opacity: 0;
   transition: opacity 0.28s ease;
 }
@@ -114,12 +119,60 @@ body {
 .cyber-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-glow);
-  box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.2);
+  box-shadow: 0 12px 35px -10px rgba(0, 240, 255, 0.25);
   transform: translateY(-2px);
 }
 
 .cyber-card:hover::before {
   opacity: 1;
+}
+
+/* Sci-Fi Corner Brackets */
+.cyber-corner {
+  position: relative;
+}
+.cyber-corner::before,
+.cyber-corner::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(0, 240, 255, 0.5);
+  pointer-events: none;
+}
+.cyber-corner::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.cyber-corner::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* Radar Sweep Animation */
+.radar-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.radar-sweep-beam {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: top left;
+  background: conic-gradient(from 0deg, rgba(0, 240, 255, 0.3) 0deg, transparent 60deg, transparent 360deg);
+  animation: radar-sweep-anim 3.5s linear infinite;
+  pointer-events: none;
+}
+@keyframes radar-sweep-anim {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Radar Pulse Indicator */
@@ -130,16 +183,26 @@ body {
 @keyframes pulse-ring {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    box-shadow: 0 0 0 0 rgba(0, 255, 157, 0.7);
   }
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 8px rgba(0, 255, 157, 0);
   }
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    box-shadow: 0 0 0 0 rgba(0, 255, 157, 0);
   }
+}
+
+/* ASCII Art Display Styling */
+.ascii-art-block {
+  font-family: 'JetBrains Mono', monospace;
+  white-space: pre;
+  line-height: 1.15;
+  letter-spacing: 0;
+  user-select: all;
+  font-size: 10px;
 }
 
 /* Scanline Effect */
@@ -151,11 +214,11 @@ body {
   display: block;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
   background-size: 100% 4px;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.45;
+  opacity: 0.35;
 }
 
 /* Terminal Styles */

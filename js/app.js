@@ -539,6 +539,10 @@ function initTerminal() {
   openButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       terminalModal.showModal();
+      const initialCmd = btn.getAttribute('data-initial-cmd');
+      if (initialCmd) {
+        setTimeout(() => executeCommand(initialCmd), 80);
+      }
       if (terminalInput) terminalInput.focus();
     });
   });
@@ -615,22 +619,78 @@ function initTerminal() {
     switch (cmd) {
       case 'help':
         outEl.innerHTML = `
-          <div class="text-emerald-400 font-semibold mb-1">AVAILABLE SOC COMMANDS:</div>
+          <div class="text-emerald-400 font-semibold mb-1">AVAILABLE SOC &amp; CYBER COMMANDS:</div>
           <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-slate-300">
-            <div><span class="text-cyan-400">whoami</span> - Identity & Specialization</div>
-            <div><span class="text-amber-400">mantra</span> - Sacred Defensive Creed (धर्मो रक्षति रक्षितः)</div>
-            <div><span class="text-amber-400">astra</span> - Cyber Astras & Defensive Arsenal</div>
-            <div><span class="text-emerald-400">kavach</span> - Layered Perimeter Shield Audit</div>
-            <div><span class="text-cyan-400">bio</span> - Professional Summary</div>
+            <div><span class="text-cyan-300 font-bold">art</span> - ASCII Sudarshana Chakra &amp; Cyber Art</div>
+            <div><span class="text-emerald-300 font-bold">shield</span> - ASCII Vajra-Kavach Defense Shield</div>
+            <div><span class="text-sky-300 font-bold">cyart</span> - CyArt-Aligned Autonomous AI Dossier</div>
+            <div><span class="text-cyan-400 font-semibold">radar</span> - Sensor Nodes &amp; Sweep Status</div>
+            <div><span class="text-amber-400 font-semibold">mantra</span> - Sacred Defensive Creed (धर्मो रक्षति रक्षितः)</div>
+            <div><span class="text-amber-400 font-semibold">astra</span> - Cyber Astras &amp; Defensive Arsenal</div>
+            <div><span class="text-cyan-400">whoami</span> - Identity &amp; Specialization</div>
             <div><span class="text-cyan-400">triage</span> - Live MITRE T1110 Incident Dossier</div>
             <div><span class="text-cyan-400">skills</span> - Full Core Security Skills Matrix</div>
-            <div><span class="text-cyan-400">experience</span> - SOC & Internship Timeline</div>
             <div><span class="text-cyan-400">projects</span> - Deployed Security Architectures</div>
-            <div><span class="text-cyan-400">certs</span> - Verified Credentials & Badges</div>
+            <div><span class="text-cyan-400">certs</span> - Verified Credentials &amp; Badges</div>
+            <div><span class="text-cyan-400">banner</span> - Cyber Rakshak ASCII Header</div>
             <div><span class="text-cyan-400">contact</span> - Phone, Email, LinkedIn, GitHub</div>
-            <div><span class="text-cyan-400">resume</span> - Print/Save Printable Resume</div>
             <div><span class="text-cyan-400">clear</span> - Flush Terminal Buffer</div>
           </div>
+        `;
+        break;
+
+      case 'art':
+      case 'chakra':
+      case 'sudarshana':
+        outEl.innerHTML = `
+          <div class="text-amber-400 font-bold mb-1">ॐ सुदर्शन चक्र // SACRED OMNIDIRECTIONAL RADAR (CYBER ASCII ART)</div>
+          <pre class="ascii-art-block text-cyan-400 font-mono text-[10px] leading-tight overflow-x-auto py-1">${portfolioData.asciiArt.chakra}</pre>
+          <div class="text-xs text-emerald-400 mt-1">360° Real-time SOC Alert Correlation • 15+ Custom Suricata Signatures • ArcSight SIEM</div>
+        `;
+        break;
+
+      case 'shield':
+        outEl.innerHTML = `
+          <div class="text-emerald-400 font-bold mb-1">🛡️ VAJRA-KAVACH // PERIMETER DEFENSE SHIELD (CYBER ASCII ART)</div>
+          <pre class="ascii-art-block text-emerald-400 font-mono text-[10px] leading-tight overflow-x-auto py-1">${portfolioData.asciiArt.shield}</pre>
+          <div class="text-xs text-slate-300 mt-1">Micro-segmented OT/IT DMZ Architecture • ISA/IEC 62443 Principles • 100% Perimeter Containment</div>
+        `;
+        break;
+
+      case 'cyart':
+      case 'ai':
+        outEl.innerHTML = `
+          <div class="text-sky-400 font-bold border-b border-sky-500/30 pb-1 mb-1">
+            ⚡ CYART-ALIGNED AUTONOMOUS DEFENSE DOSSIER
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono">
+            <div>• AI Core: <span class="text-cyan-300">${portfolioData.autonomousDefense.engine}</span></div>
+            <div>• Status: <span class="text-emerald-400 font-semibold">${portfolioData.autonomousDefense.status}</span></div>
+            <div>• Anomaly Index: <span class="text-emerald-300 font-bold">${portfolioData.autonomousDefense.anomalyScore}</span></div>
+            <div>• Sovereign Directives: <span class="text-amber-300">${portfolioData.autonomousDefense.sovereignCompliance}</span></div>
+            <div>• TTP Coverage: <span class="text-slate-300">${portfolioData.autonomousDefense.mitreTactics}</span></div>
+            <div>• Telemetry Feeds: <span class="text-cyan-400">${portfolioData.socMetrics.threatFeedStatus}</span></div>
+          </div>
+          <div class="text-emerald-400 text-xs mt-1">✓ Automated alert correlation reduces false positives and Mean Time to Respond (MTTR).</div>
+        `;
+        break;
+
+      case 'radar':
+        outEl.innerHTML = `
+          <div class="text-cyan-400 font-bold mb-1">📡 SOC RADAR SWEEP &amp; SENSOR TELEMETRY:</div>
+          <div class="space-y-1 font-mono text-xs">
+            <div>[SENSOR-01] VM-1 (Suricata IDS / Promiscuous)  &rarr; <span class="text-emerald-400 font-semibold">ONLINE (AF-PACKET / 0 drops)</span></div>
+            <div>[SENSOR-02] Filebeat Shipper (eve.json)       &rarr; <span class="text-emerald-400 font-semibold">STREAMING (Cursor Synced)</span></div>
+            <div>[SIEM-CORE] ArcSight ESM CSOC Collector        &rarr; <span class="text-emerald-400 font-semibold">CORRELATING (50+ alerts/day)</span></div>
+            <div>[AI-ENGINE] Project Trinetra Anomaly Detector &rarr; <span class="text-cyan-300 font-semibold">ACTIVE (0.02% Anomaly Index)</span></div>
+            <div>[MITRE-COR] T1110 Brute Force Cluster Rule     &rarr; <span class="text-amber-400 font-semibold">ARMED // ESCALATION READY</span></div>
+          </div>
+        `;
+        break;
+
+      case 'banner':
+        outEl.innerHTML = `
+          <pre class="ascii-art-block text-cyan-400 font-mono text-[9px] leading-tight overflow-x-auto py-1">${portfolioData.asciiArt.banner}</pre>
         `;
         break;
 
